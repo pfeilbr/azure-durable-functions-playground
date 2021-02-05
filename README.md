@@ -44,6 +44,9 @@ func new -t "Durable Functions activity" -l javascript -n DurableFunctionsActivi
 # deploy
 func azure functionapp publish "${FUNCTION_APP}"
 
+# get function all base URL
+FUNCTION_APP_URL="https://$(az functionapp show -g ${RESOURCE_GROUP} -n ${FUNCTION_APP} --query defaultHostName -o tsv)/api"
+
 # pull down app settings for running locally
 func azure functionapp fetch-app-settings "${FUNCTION_APP}"
 
@@ -89,7 +92,7 @@ curl 'http://localhost:7071/runtime/webhooks/durabletask/instances/20f2ddc1e3454
 func azure functionapp logstream "${FUNCTION_APP}"
 
 # trigger durable function
-curl 'https://durablefnsplayground01.azurewebsites.net/api/orchestrators/DurableFunctionsOrchestrator?code=CODE'
+curl "${FUNCTION_APP_URL}/orchestrators/DurableFunctionsOrchestrator?code=CODE"
 
 # async execution - output
 #
@@ -120,10 +123,17 @@ curl "https://durablefnsplayground01.azurewebsites.net/runtime/webhooks/durablet
 # }
 
 # query function logs
+read -r -d '' QUERY << EOM
+traces
+| project timestamp, message
+| where timestamp > ago(24h)
+| limit 10
+EOM
+
 az monitor app-insights query \
     --app 'cd03d419-0bba-410e-ac3f-d7e934c027f1' \
-    --analytics-query 'traces | project timestamp, message' \
-    --offset 24h
+    --analytics-query "${QUERY}"
+
 
 # output
 #
