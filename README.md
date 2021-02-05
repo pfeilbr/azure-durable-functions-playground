@@ -84,8 +84,12 @@ curl 'http://localhost:7071/runtime/webhooks/durabletask/instances/20f2ddc1e3454
 
 # ---
 
+# start in own terminal
+# Show interactive streaming logs for an Azure-hosted Function App
+func azure functionapp logstream "${FUNCTION_APP}"
+
 # trigger durable function
-curl 'https://durablefnsplayground01.azurewebsites.net/api/orchestrators/DurableFunctionsOrchestrator?code=UD0/aY27zc3FPpjNjaAqMU73yVJuLB1tva3U9TaaWDAMzwEzg3qeVA=='
+curl 'https://durablefnsplayground01.azurewebsites.net/api/orchestrators/DurableFunctionsOrchestrator?code=CODE'
 
 # async execution - output
 #
