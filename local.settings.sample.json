@@ -1,0 +1,14 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "AzureWebJobsStorage": "YOURS HERE",
+    "WEBSITE_NODE_DEFAULT_VERSION": "~12",
+    "FUNCTIONS_EXTENSION_VERSION": "~3",
+    "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "YOURS HERE",
+    "WEBSITE_CONTENTSHARE": "durablefnsplayground01",
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "acaeac92-7eeb-46c4-9b89-fe8f3a0a7730",
+    "WEBSITE_RUN_FROM_PACKAGE": "1"
+  },
+  "ConnectionStrings": {}
+}
